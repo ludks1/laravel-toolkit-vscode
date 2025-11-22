@@ -156,7 +156,9 @@ async function generateAPI() {
           try {
             await createModel(rootPath, modelName, components.migration);
           } catch (error) {
-            vscode.window.showErrorMessage(`Error creating model: ${error.message}`);
+            vscode.window.showErrorMessage(
+              `Error creating model: ${error.message}`
+            );
           }
         }
 
@@ -170,7 +172,9 @@ async function generateAPI() {
               useAuth.value
             );
           } catch (error) {
-            vscode.window.showErrorMessage(`Error creating controller: ${error.message}`);
+            vscode.window.showErrorMessage(
+              `Error creating controller: ${error.message}`
+            );
           }
         }
 
@@ -179,7 +183,9 @@ async function generateAPI() {
           try {
             await createAPIResource(rootPath, modelName, apiVersion);
           } catch (error) {
-            vscode.window.showErrorMessage(`Error creating resource: ${error.message}`);
+            vscode.window.showErrorMessage(
+              `Error creating resource: ${error.message}`
+            );
           }
         }
 
@@ -188,7 +194,9 @@ async function generateAPI() {
           try {
             await createAPICollection(rootPath, modelName, apiVersion);
           } catch (error) {
-            vscode.window.showErrorMessage(`Error creating collection: ${error.message}`);
+            vscode.window.showErrorMessage(
+              `Error creating collection: ${error.message}`
+            );
           }
         }
 
@@ -197,16 +205,25 @@ async function generateAPI() {
           try {
             await createFormRequests(rootPath, modelName);
           } catch (error) {
-            vscode.window.showErrorMessage(`Error creating requests: ${error.message}`);
+            vscode.window.showErrorMessage(
+              `Error creating requests: ${error.message}`
+            );
           }
         }
 
         progress.report({ increment: 10, message: "Creating Routes..." });
         if (components.routes) {
           try {
-            await createAPIRoutes(rootPath, modelName, apiVersion, useAuth.value);
+            await createAPIRoutes(
+              rootPath,
+              modelName,
+              apiVersion,
+              useAuth.value
+            );
           } catch (error) {
-            vscode.window.showErrorMessage(`Error creating routes: ${error.message}`);
+            vscode.window.showErrorMessage(
+              `Error creating routes: ${error.message}`
+            );
           }
         }
 
@@ -215,7 +232,9 @@ async function generateAPI() {
           try {
             await createAPITests(rootPath, modelName, apiVersion);
           } catch (error) {
-            vscode.window.showErrorMessage(`Error creating tests: ${error.message}`);
+            vscode.window.showErrorMessage(
+              `Error creating tests: ${error.message}`
+            );
           }
         }
 
@@ -224,7 +243,9 @@ async function generateAPI() {
           try {
             await createPolicy(rootPath, modelName);
           } catch (error) {
-            vscode.window.showErrorMessage(`Error creating policy: ${error.message}`);
+            vscode.window.showErrorMessage(
+              `Error creating policy: ${error.message}`
+            );
           }
         }
 
@@ -403,7 +424,9 @@ class ${modelName}Controller extends Controller
      * @param ${modelName} $${toSnakeCase(modelName)}
      * @return ${modelName}Resource
      */
-    public function show(${modelName} $${toSnakeCase(modelName)}): ${modelName}Resource
+    public function show(${modelName} $${toSnakeCase(
+    modelName
+  )}): ${modelName}Resource
     {
         return new ${modelName}Resource($${toSnakeCase(modelName)});
     }
@@ -718,7 +741,7 @@ Route::prefix('${versionPrefix}')->group(function () {
 `;
 
   let content = fs.readFileSync(apiRoutesPath, "utf8");
-  
+
   // Add route if not already present
   if (!content.includes(`${modelName} API Routes`)) {
     content += routeGroup;

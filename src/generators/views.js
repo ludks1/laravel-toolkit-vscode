@@ -79,15 +79,17 @@ async function generateReactView() {
 
     // Create route entry suggestion
     const routePath = `/${toKebabCase(viewName)}`;
-    
-    vscode.window.showInformationMessage(
-      `✅ React view ${viewName} created successfully`,
-      "Add Route"
-    ).then((selection) => {
-      if (selection === "Add Route") {
-        addReactRoute(viewName, routePath);
-      }
-    });
+
+    vscode.window
+      .showInformationMessage(
+        `✅ React view ${viewName} created successfully`,
+        "Add Route"
+      )
+      .then((selection) => {
+        if (selection === "Add Route") {
+          addReactRoute(viewName, routePath);
+        }
+      });
   } catch (error) {
     vscode.window.showErrorMessage(`❌ Error: ${error.message}`);
   }
@@ -682,15 +684,17 @@ async function generateVueView() {
 
     // Create route entry suggestion
     const routePath = `/${toKebabCase(viewName)}`;
-    
-    vscode.window.showInformationMessage(
-      `✅ Vue view ${viewName} created successfully`,
-      "Add Route"
-    ).then((selection) => {
-      if (selection === "Add Route") {
-        addVueRoute(viewName, routePath);
-      }
-    });
+
+    vscode.window
+      .showInformationMessage(
+        `✅ Vue view ${viewName} created successfully`,
+        "Add Route"
+      )
+      .then((selection) => {
+        if (selection === "Add Route") {
+          addVueRoute(viewName, routePath);
+        }
+      });
   } catch (error) {
     vscode.window.showErrorMessage(`❌ Error: ${error.message}`);
   }
@@ -1194,9 +1198,11 @@ const fetchStats = async () => {
 async function addReactRoute(viewName, routePath) {
   const rootPath = getLaravelRootPath();
   const routerPath = path.join(rootPath, "resources", "js", "router.jsx");
-  
+
   if (!fs.existsSync(routerPath)) {
-    vscode.window.showWarningMessage("Router file not found. Please add the route manually.");
+    vscode.window.showWarningMessage(
+      "Router file not found. Please add the route manually."
+    );
     return;
   }
 
@@ -1204,7 +1210,7 @@ async function addReactRoute(viewName, routePath) {
   const routeStatement = `    { path: '${routePath}', element: <${viewName} /> },`;
 
   let content = fs.readFileSync(routerPath, "utf8");
-  
+
   if (!content.includes(importStatement)) {
     // Add import after last import
     const lines = content.split("\n");
@@ -1220,10 +1226,7 @@ async function addReactRoute(viewName, routePath) {
 
   if (!content.includes(routeStatement.trim())) {
     // Add route to routes array
-    content = content.replace(
-      /(const routes = \[)/,
-      `$1\n${routeStatement}`
-    );
+    content = content.replace(/(const routes = \[)/, `$1\n${routeStatement}`);
   }
 
   fs.writeFileSync(routerPath, content);
@@ -1236,17 +1239,21 @@ async function addReactRoute(viewName, routePath) {
 async function addVueRoute(viewName, routePath) {
   const rootPath = getLaravelRootPath();
   const routerPath = path.join(rootPath, "resources", "js", "router.js");
-  
+
   if (!fs.existsSync(routerPath)) {
-    vscode.window.showWarningMessage("Router file not found. Please add the route manually.");
+    vscode.window.showWarningMessage(
+      "Router file not found. Please add the route manually."
+    );
     return;
   }
 
   const importStatement = `import ${viewName} from './Pages/${viewName}.vue';`;
-  const routeStatement = `    { path: '${routePath}', name: '${toKebabCase(viewName)}', component: ${viewName} },`;
+  const routeStatement = `    { path: '${routePath}', name: '${toKebabCase(
+    viewName
+  )}', component: ${viewName} },`;
 
   let content = fs.readFileSync(routerPath, "utf8");
-  
+
   if (!content.includes(importStatement)) {
     // Add import after last import
     const lines = content.split("\n");
@@ -1262,10 +1269,7 @@ async function addVueRoute(viewName, routePath) {
 
   if (!content.includes(routeStatement.trim())) {
     // Add route to routes array
-    content = content.replace(
-      /(const routes = \[)/,
-      `$1\n${routeStatement}`
-    );
+    content = content.replace(/(const routes = \[)/, `$1\n${routeStatement}`);
   }
 
   fs.writeFileSync(routerPath, content);

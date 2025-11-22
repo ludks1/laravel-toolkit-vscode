@@ -44,9 +44,7 @@ async function makeModel() {
       `✅ Model ${modelName} created successfully`
     );
   } catch (error) {
-    vscode.window.showErrorMessage(
-      `❌ Error creating model: ${error.message}`
-    );
+    vscode.window.showErrorMessage(`❌ Error creating model: ${error.message}`);
   }
 }
 
@@ -294,9 +292,7 @@ async function routeList() {
   try {
     await executeArtisanCommand("route:list");
   } catch (error) {
-    vscode.window.showErrorMessage(
-      `❌ Error listing routes: ${error.message}`
-    );
+    vscode.window.showErrorMessage(`❌ Error listing routes: ${error.message}`);
   }
 }
 
@@ -308,9 +304,7 @@ async function cacheClear() {
     await executeArtisanCommand("cache:clear", false);
     vscode.window.showInformationMessage(`✅ Cache cleared successfully`);
   } catch (error) {
-    vscode.window.showErrorMessage(
-      `❌ Error clearing cache: ${error.message}`
-    );
+    vscode.window.showErrorMessage(`❌ Error clearing cache: ${error.message}`);
   }
 }
 

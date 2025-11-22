@@ -30,7 +30,8 @@ async function generateVueCRUD() {
   if (!modelName) return;
 
   const fields = await showInputBox({
-    prompt: "Model fields (comma separated: name:string,price:decimal,description:text)",
+    prompt:
+      "Model fields (comma separated: name:string,price:decimal,description:text)",
     placeHolder: "name:string,price:decimal,stock:integer",
   });
 
@@ -54,19 +55,31 @@ async function generateVueCRUD() {
         progress.report({ increment: 10, message: "Creating Migration..." });
         await createMigration(rootPath, modelName, parsedFields);
 
-        progress.report({ increment: 15, message: "Creating API Controller..." });
+        progress.report({
+          increment: 15,
+          message: "Creating API Controller...",
+        });
         await createAPIController(rootPath, modelName, parsedFields);
 
         progress.report({ increment: 15, message: "Creating API Resource..." });
         await createAPIResource(rootPath, modelName, parsedFields);
 
-        progress.report({ increment: 10, message: "Creating Form Requests..." });
+        progress.report({
+          increment: 10,
+          message: "Creating Form Requests...",
+        });
         await createFormRequests(rootPath, modelName, parsedFields);
 
-        progress.report({ increment: 15, message: "Creating Vue Components..." });
+        progress.report({
+          increment: 15,
+          message: "Creating Vue Components...",
+        });
         await createVueComponents(rootPath, modelName, parsedFields);
 
-        progress.report({ increment: 10, message: "Creating Vue Composables..." });
+        progress.report({
+          increment: 10,
+          message: "Creating Vue Composables...",
+        });
         await createVueComposables(rootPath, modelName);
 
         progress.report({ increment: 10, message: "Creating API Routes..." });
@@ -106,7 +119,8 @@ async function generateReactCRUD() {
   if (!modelName) return;
 
   const fields = await showInputBox({
-    prompt: "Model fields (comma separated: name:string,price:decimal,description:text)",
+    prompt:
+      "Model fields (comma separated: name:string,price:decimal,description:text)",
     placeHolder: "name:string,price:decimal,stock:integer",
   });
 
@@ -130,16 +144,25 @@ async function generateReactCRUD() {
         progress.report({ increment: 10, message: "Creating Migration..." });
         await createMigration(rootPath, modelName, parsedFields);
 
-        progress.report({ increment: 15, message: "Creating API Controller..." });
+        progress.report({
+          increment: 15,
+          message: "Creating API Controller...",
+        });
         await createAPIController(rootPath, modelName, parsedFields);
 
         progress.report({ increment: 15, message: "Creating API Resource..." });
         await createAPIResource(rootPath, modelName, parsedFields);
 
-        progress.report({ increment: 10, message: "Creating Form Requests..." });
+        progress.report({
+          increment: 10,
+          message: "Creating Form Requests...",
+        });
         await createFormRequests(rootPath, modelName, parsedFields);
 
-        progress.report({ increment: 15, message: "Creating React Components..." });
+        progress.report({
+          increment: 15,
+          message: "Creating React Components...",
+        });
         await createReactComponents(rootPath, modelName, parsedFields);
 
         progress.report({ increment: 10, message: "Creating React Hooks..." });
@@ -148,7 +171,10 @@ async function generateReactCRUD() {
         progress.report({ increment: 10, message: "Creating API Routes..." });
         await createAPIRoutes(rootPath, modelName);
 
-        progress.report({ increment: 5, message: "Registering React Routes..." });
+        progress.report({
+          increment: 5,
+          message: "Registering React Routes...",
+        });
         await registerReactRoutes(rootPath, modelName);
 
         progress.report({ increment: 10, message: "Done!" });
@@ -565,15 +591,24 @@ async function createVueComponents(rootPath, modelName, fields) {
 
   // List Component
   const listComponent = generateVueListComponent(modelName, fields);
-  fs.writeFileSync(path.join(componentsPath, `${modelName}List.vue`), listComponent);
+  fs.writeFileSync(
+    path.join(componentsPath, `${modelName}List.vue`),
+    listComponent
+  );
 
   // Form Component
   const formComponent = generateVueFormComponent(modelName, fields);
-  fs.writeFileSync(path.join(componentsPath, `${modelName}Form.vue`), formComponent);
+  fs.writeFileSync(
+    path.join(componentsPath, `${modelName}Form.vue`),
+    formComponent
+  );
 
   // Show Component
   const showComponent = generateVueShowComponent(modelName, fields);
-  fs.writeFileSync(path.join(componentsPath, `${modelName}Show.vue`), showComponent);
+  fs.writeFileSync(
+    path.join(componentsPath, `${modelName}Show.vue`),
+    showComponent
+  );
 }
 
 /**
@@ -1050,10 +1085,7 @@ export function use${modelName}s() {
 }
 `;
 
-  fs.writeFileSync(
-    path.join(composablesPath, `use${modelName}s.js`),
-    content
-  );
+  fs.writeFileSync(path.join(composablesPath, `use${modelName}s.js`), content);
 }
 
 /**
@@ -1073,15 +1105,24 @@ async function createReactComponents(rootPath, modelName, fields) {
 
   // List Component
   const listComponent = generateReactListComponent(modelName, fields);
-  fs.writeFileSync(path.join(componentsPath, `${modelName}List.jsx`), listComponent);
+  fs.writeFileSync(
+    path.join(componentsPath, `${modelName}List.jsx`),
+    listComponent
+  );
 
   // Form Component
   const formComponent = generateReactFormComponent(modelName, fields);
-  fs.writeFileSync(path.join(componentsPath, `${modelName}Form.jsx`), formComponent);
+  fs.writeFileSync(
+    path.join(componentsPath, `${modelName}Form.jsx`),
+    formComponent
+  );
 
   // Show Component
   const showComponent = generateReactShowComponent(modelName, fields);
-  fs.writeFileSync(path.join(componentsPath, `${modelName}Show.jsx`), showComponent);
+  fs.writeFileSync(
+    path.join(componentsPath, `${modelName}Show.jsx`),
+    showComponent
+  );
 }
 
 /**
@@ -1093,11 +1134,17 @@ function generateReactListComponent(modelName, fields) {
   const variableName = toCamelCase(modelName);
 
   const tableHeaders = fields
-    .map((field) => `                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">${field.name}</th>`)
+    .map(
+      (field) =>
+        `                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">${field.name}</th>`
+    )
     .join("\n");
 
   const tableCells = fields
-    .map((field) => `                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{${variableName}.${field.name}}</td>`)
+    .map(
+      (field) =>
+        `                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{${variableName}.${field.name}}</td>`
+    )
     .join("\n");
 
   return `import React, { useEffect } from 'react';
@@ -1251,7 +1298,9 @@ function generateReactFormComponent(modelName, fields) {
     })
     .join("\n\n");
 
-  const initialForm = fields.map((field) => `        ${field.name}: '',`).join("\n");
+  const initialForm = fields
+    .map((field) => `        ${field.name}: '',`)
+    .join("\n");
 
   return `import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
@@ -1562,7 +1611,7 @@ Route::apiResource('${kebabName}s', App\\Http\\Controllers\\Api\\${modelName}Con
 `;
 
   let content = fs.readFileSync(apiRoutesPath, "utf8");
-  
+
   if (!content.includes(`${modelName} API Routes`)) {
     content += routeCode;
     fs.writeFileSync(apiRoutesPath, content);
@@ -1574,7 +1623,7 @@ Route::apiResource('${kebabName}s', App\\Http\\Controllers\\Api\\${modelName}Con
  */
 async function registerVueRoutes(rootPath, modelName) {
   const routerPath = path.join(rootPath, "resources", "js", "router.js");
-  
+
   if (!fs.existsSync(routerPath)) {
     vscode.window.showInformationMessage(
       "router.js not found. Please add Vue routes manually."
@@ -1609,13 +1658,16 @@ async function registerVueRoutes(rootPath, modelName) {
     },`;
 
   let content = fs.readFileSync(routerPath, "utf8");
-  
+
   if (!content.includes(`${modelName} Routes`)) {
     // Find routes array and add before the closing bracket
     const routesArrayMatch = content.match(/const routes = \[([\s\S]*?)\]/);
     if (routesArrayMatch) {
       const lastRouteIndex = content.lastIndexOf("}") - 1;
-      content = content.slice(0, lastRouteIndex) + routeCode + content.slice(lastRouteIndex);
+      content =
+        content.slice(0, lastRouteIndex) +
+        routeCode +
+        content.slice(lastRouteIndex);
       fs.writeFileSync(routerPath, content);
     }
   }
@@ -1626,7 +1678,7 @@ async function registerVueRoutes(rootPath, modelName) {
  */
 async function registerReactRoutes(rootPath, modelName) {
   const routerPath = path.join(rootPath, "resources", "js", "router.jsx");
-  
+
   if (!fs.existsSync(routerPath)) {
     vscode.window.showInformationMessage(
       "router.jsx not found. Please add React routes manually."
@@ -1650,22 +1702,30 @@ import ${modelName}Show from '@/components/${modelName}/${modelName}Show';
 `;
 
   let content = fs.readFileSync(routerPath, "utf8");
-  
+
   if (!content.includes(`${modelName} Routes`)) {
     // Add imports at the top
     const importMatch = content.match(/import.*from.*;\n/);
     if (importMatch) {
-      const lastImportIndex = content.lastIndexOf(importMatch[0]) + importMatch[0].length;
-      content = content.slice(0, lastImportIndex) + importCode + content.slice(lastImportIndex);
+      const lastImportIndex =
+        content.lastIndexOf(importMatch[0]) + importMatch[0].length;
+      content =
+        content.slice(0, lastImportIndex) +
+        importCode +
+        content.slice(lastImportIndex);
     }
-    
+
     // Add routes
     const routesMatch = content.match(/<Routes>([\s\S]*?)<\/Routes>/);
     if (routesMatch) {
-      const lastRouteIndex = content.lastIndexOf("</Route>") + "</Route>".length;
-      content = content.slice(0, lastRouteIndex) + routeCode + content.slice(lastRouteIndex);
+      const lastRouteIndex =
+        content.lastIndexOf("</Route>") + "</Route>".length;
+      content =
+        content.slice(0, lastRouteIndex) +
+        routeCode +
+        content.slice(lastRouteIndex);
     }
-    
+
     fs.writeFileSync(routerPath, content);
   }
 }

@@ -192,7 +192,9 @@ class ${name}Test extends TestCase
     {
         $${toSnakeCase(name)} = ${name}::factory()->create();
 
-        $response = $this->getJson("{$this->endpoint}/{$${toSnakeCase(name)}->id}");
+        $response = $this->getJson("{$this->endpoint}/{$${toSnakeCase(
+          name
+        )}->id}");
 
         $response->assertStatus(200)
             ->assertJson([
@@ -211,7 +213,9 @@ class ${name}Test extends TestCase
             'name' => 'Updated ${name}',
         ];
 
-        $response = $this->putJson("{$this->endpoint}/{$${toSnakeCase(name)}->id}", $data);
+        $response = $this->putJson("{$this->endpoint}/{$${toSnakeCase(
+          name
+        )}->id}", $data);
 
         $response->assertStatus(200)
             ->assertJson([
@@ -226,7 +230,9 @@ class ${name}Test extends TestCase
     {
         $${toSnakeCase(name)} = ${name}::factory()->create();
 
-        $response = $this->deleteJson("{$this->endpoint}/{$${toSnakeCase(name)}->id}");
+        $response = $this->deleteJson("{$this->endpoint}/{$${toSnakeCase(
+          name
+        )}->id}");
 
         $response->assertStatus(204);
         $this->assertDatabaseMissing('${toSnakeCase(name)}s', [
@@ -294,7 +300,9 @@ class ${name}Test extends TestCase
     {
         $${toSnakeCase(name)} = ${name}::factory()->create();
 
-        $response = $this->get("/${toSnakeCase(name)}s/{$${toSnakeCase(name)}->id}");
+        $response = $this->get("/${toSnakeCase(name)}s/{$${toSnakeCase(
+      name
+    )}->id}");
 
         $response->assertStatus(200);
         $response->assertViewIs('${toSnakeCase(name)}s.show');
@@ -306,7 +314,9 @@ class ${name}Test extends TestCase
     {
         $${toSnakeCase(name)} = ${name}::factory()->create();
 
-        $response = $this->get("/${toSnakeCase(name)}s/{$${toSnakeCase(name)}->id}/edit");
+        $response = $this->get("/${toSnakeCase(name)}s/{$${toSnakeCase(
+      name
+    )}->id}/edit");
 
         $response->assertStatus(200);
         $response->assertViewIs('${toSnakeCase(name)}s.edit');
@@ -322,7 +332,9 @@ class ${name}Test extends TestCase
             'name' => 'Updated ${name}',
         ];
 
-        $response = $this->put("/${toSnakeCase(name)}s/{$${toSnakeCase(name)}->id}", $data);
+        $response = $this->put("/${toSnakeCase(name)}s/{$${toSnakeCase(
+      name
+    )}->id}", $data);
 
         $response->assertRedirect();
         $this->assertDatabaseHas('${toSnakeCase(name)}s', $data);
@@ -333,7 +345,9 @@ class ${name}Test extends TestCase
     {
         $${toSnakeCase(name)} = ${name}::factory()->create();
 
-        $response = $this->delete("/${toSnakeCase(name)}s/{$${toSnakeCase(name)}->id}");
+        $response = $this->delete("/${toSnakeCase(name)}s/{$${toSnakeCase(
+      name
+    )}->id}");
 
         $response->assertRedirect();
         $this->assertDatabaseMissing('${toSnakeCase(name)}s', [
@@ -432,10 +446,7 @@ async function generateService() {
     ensureDirectoryExists(servicesPath);
 
     const content = generateServiceContent(serviceName, selectedType);
-    const filePath = path.join(
-      servicesPath,
-      `${serviceName}Service.php`
-    );
+    const filePath = path.join(servicesPath, `${serviceName}Service.php`);
 
     fs.writeFileSync(filePath, content);
 
@@ -616,7 +627,9 @@ class ${name}Service
     /**
      * Handle ${toSnakeCase(name)} update with business logic
      */
-    public function update${name}(${name} $${toSnakeCase(name)}, array $data): ${name}
+    public function update${name}(${name} $${toSnakeCase(
+      name
+    )}, array $data): ${name}
     {
         return DB::transaction(function () use ($${toSnakeCase(name)}, $data) {
             // Update the ${toSnakeCase(name)}
@@ -654,7 +667,9 @@ class ${name}Service
     /**
      * Additional business logic
      */
-    protected function handleAdditionalLogic(${name} $${toSnakeCase(name)}): void
+    protected function handleAdditionalLogic(${name} $${toSnakeCase(
+      name
+    )}): void
     {
         // Add your custom business logic here
         // Example: Send notifications, update related records, etc.

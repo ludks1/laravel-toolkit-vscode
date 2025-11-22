@@ -90,6 +90,7 @@ Fields: name:string,price:decimal,stock:integer
 ```
 
 **Generates**:
+
 - ✅ Laravel Model + Migration
 - ✅ API Controller with validation
 - ✅ API Resource + Collection
@@ -108,6 +109,7 @@ Generate: All components + Tests
 ```
 
 **Generates**:
+
 - ✅ Complete API with 5 endpoints
 - ✅ Form Requests (Store/Update)
 - ✅ API Resources
@@ -116,16 +118,16 @@ Generate: All components + Tests
 
 ## 🎨 Features Overview
 
-| Feature | Description |
-|---------|-------------|
-| **47 Commands** | All Laravel operations from sidebar |
-| **6 Controller Types** | Empty, Invokable, Resource, API, Model, Custom |
-| **15+ Field Types** | String, Text, Integer, Decimal, Date, JSON, etc. |
-| **Vue 3 Support** | Composition API, Composables, Vue Router |
-| **React Support** | Hooks, Custom Hooks, React Router |
-| **API Generation** | Resources, Tests, Policies, Authentication |
-| **Route Management** | Modular routes (Web, API, Admin, Auth) |
-| **Artisan Integration** | All commands with interactive prompts |
+| Feature                 | Description                                      |
+| ----------------------- | ------------------------------------------------ |
+| **47 Commands**         | All Laravel operations from sidebar              |
+| **6 Controller Types**  | Empty, Invokable, Resource, API, Model, Custom   |
+| **15+ Field Types**     | String, Text, Integer, Decimal, Date, JSON, etc. |
+| **Vue 3 Support**       | Composition API, Composables, Vue Router         |
+| **React Support**       | Hooks, Custom Hooks, React Router                |
+| **API Generation**      | Resources, Tests, Policies, Authentication       |
+| **Route Management**    | Modular routes (Web, API, Admin, Auth)           |
+| **Artisan Integration** | All commands with interactive prompts            |
 
 ## ⚙️ Configuration
 
@@ -144,6 +146,7 @@ Access via: `File` → `Preferences` → `Settings` → Search "Laravel Toolkit"
 ## 🔧 Available Commands
 
 ### Generators
+
 - Generate Advanced Model
 - Generate Advanced Controller
 - Generate Advanced Migration
@@ -155,18 +158,21 @@ Access via: `File` → `Preferences` → `Settings` → Search "Laravel Toolkit"
 - Generate Test
 
 ### Database
+
 - Run Migrations
 - Refresh Migrations
 - Fresh Migrations + Seed
 - Run Seeders
 
 ### Routes
+
 - Generate Route File
 - Generate Resource Routes
 - Setup Modular Routes
 - List Routes
 
 ### Utilities
+
 - Clear Cache
 - Clear Config
 - Optimize Application
@@ -180,6 +186,7 @@ Access via: `File` → `Preferences` → `Settings` → Search "Laravel Toolkit"
 ### Common Issues
 
 **PHP not found**
+
 ```json
 {
   "laravelToolkit.phpPath": "C:\\php\\php.exe"
@@ -187,12 +194,14 @@ Access via: `File` → `Preferences` → `Settings` → Search "Laravel Toolkit"
 ```
 
 **Routes not working**
+
 ```bash
 php artisan route:clear
 php artisan route:cache
 ```
 
 **Frontend not compiling**
+
 ```bash
 npm install
 npm run dev

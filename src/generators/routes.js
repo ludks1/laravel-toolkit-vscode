@@ -68,7 +68,7 @@ async function generateRouteFile() {
   );
 
   if (!routeType) return;
-  
+
   // Extract value from the returned object
   // @ts-ignore - showQuickPick returns the selected item with value property
   const selectedRouteType = routeType.value || routeType;
@@ -120,7 +120,7 @@ async function generateRouteFile() {
           selectedRouteType,
           routeFilePath
         );
-        
+
         // Add require to web.php or api.php
         await addRequireToMainRouteFile(
           moduleName,
@@ -147,8 +147,7 @@ async function selectRoutesToCreate(routeType) {
   const availableRoutes = getAvailableRoutes(routeType);
 
   const selected = await vscode.window.showQuickPick(availableRoutes, {
-    placeHolder:
-      "Select routes to create (use space to select multiple)",
+    placeHolder: "Select routes to create (use space to select multiple)",
     canPickMany: true,
   });
 
@@ -667,7 +666,7 @@ async function updateRouteServiceProvider(
 async function addRequireToMainRouteFile(moduleName, routeType, routeFilePath) {
   const rootPath = getLaravelRootPath();
   const routesPath = path.join(rootPath, "routes");
-  
+
   // Determine which main file to update based on route type
   let mainFileName;
   if (routeType === "api") {
@@ -675,28 +674,30 @@ async function addRequireToMainRouteFile(moduleName, routeType, routeFilePath) {
   } else {
     mainFileName = "web.php"; // web, auth, admin, protected, public all go to web.php
   }
-  
+
   const mainFilePath = path.join(routesPath, mainFileName);
-  
+
   if (!fs.existsSync(mainFilePath)) {
     return;
   }
-  
+
   // Get relative path from routes/ to the module file
-  const relativePath = path.relative(routesPath, routeFilePath).replace(/\\/g, '/');
+  const relativePath = path
+    .relative(routesPath, routeFilePath)
+    .replace(/\\/g, "/");
   const requireStatement = `require __DIR__.'/${relativePath}';\n`;
-  
+
   let content = fs.readFileSync(mainFilePath, "utf8");
-  
+
   // Check if already exists
   if (content.includes(requireStatement.trim())) {
     return;
   }
-  
+
   // Add comment and require at the end of the file
   const comment = `\n// ${toPascalCase(moduleName)} module routes\n`;
   content = content.trimEnd() + `\n${comment}${requireStatement}`;
-  
+
   fs.writeFileSync(mainFilePath, content);
 }
 
@@ -828,9 +829,7 @@ async function listModularRoutes() {
   });
 
   if (routes.length === 0) {
-    vscode.window.showInformationMessage(
-      "No route files in routes/modules"
-    );
+    vscode.window.showInformationMessage("No route files in routes/modules");
     return;
   }
 
@@ -864,7 +863,7 @@ async function generateResourceRoutes() {
   );
 
   if (!routeType) return;
-  
+
   // Extract value from the returned object
   // @ts-ignore - showQuickPick returns the selected item with value property
   const selectedResourceType = routeType.value || routeType;
@@ -896,7 +895,7 @@ async function generateResourceRoutes() {
       selectedResourceType,
       routeFilePath
     );
-    
+
     // Add require to web.php or api.php
     await addRequireToMainRouteFile(
       moduleName,

@@ -28,7 +28,7 @@ async function generateJSFile() {
   );
 
   if (!type) return;
-  
+
   // Extract value from the returned object
   // @ts-ignore - showQuickPick returns the selected item with value property
   const selectedType = type.value || type;
@@ -70,9 +70,7 @@ async function generateJSFile() {
       `✅ File ${fileName}.js created successfully`
     );
   } catch (error) {
-    vscode.window.showErrorMessage(
-      `❌ Error creating file: ${error.message}`
-    );
+    vscode.window.showErrorMessage(`❌ Error creating file: ${error.message}`);
   }
 }
 
@@ -178,7 +176,7 @@ export default {
 
   const filePath = path.join(utilsPath, `${toKebabCase(name)}.js`);
   fs.writeFileSync(filePath, content);
-  
+
   // Update app.js to import the utility
   await updateAppJS(name, "utility");
 }
@@ -282,7 +280,7 @@ export default {
 
   const filePath = path.join(servicesPath, `${toKebabCase(name)}.service.js`);
   fs.writeFileSync(filePath, content);
-  
+
   // Update app.js to import the service
   await updateAppJS(name, "service");
 }
@@ -404,7 +402,7 @@ export default new ${toPascalCase(name)}Store();
 
   const filePath = path.join(storePath, `${toKebabCase(name)}.store.js`);
   fs.writeFileSync(filePath, content);
-  
+
   // Update app.js to import the store
   await updateAppJS(name, "store");
 }
@@ -482,7 +480,7 @@ export function use${toPascalCase(name)}() {
 
   const filePath = path.join(hooksPath, `${toKebabCase(name)}.js`);
   fs.writeFileSync(filePath, content);
-  
+
   // Update app.js to import the hook
   await updateAppJS(name, "hook");
 }
@@ -634,7 +632,7 @@ console.log('Application loaded');
   }
 
   // Create bootstrap.js if it doesn't exist
-  const bootstrapJsPath = path.join(jsPath, 'bootstrap.js');
+  const bootstrapJsPath = path.join(jsPath, "bootstrap.js");
   if (!fs.existsSync(bootstrapJsPath)) {
     const bootstrapContent = `/**
  * Bootstrap Application
@@ -688,7 +686,7 @@ async function generateCSSFile() {
   );
 
   if (!fileType) return;
-  
+
   // @ts-ignore
   const selectedType = fileType.value || fileType;
 
@@ -717,7 +715,10 @@ async function generateCSSFile() {
 `;
 
     const extension = selectedType === "scss" ? "scss" : "css";
-    const filePath = path.join(cssPath, `${toKebabCase(fileName)}.${extension}`);
+    const filePath = path.join(
+      cssPath,
+      `${toKebabCase(fileName)}.${extension}`
+    );
     fs.writeFileSync(filePath, content);
 
     // Add import to app.css
@@ -743,7 +744,9 @@ async function addCSSImport(fileName, extension) {
   }
 
   let content = fs.readFileSync(appCssPath, "utf8");
-  const importStatement = `@import './${toKebabCase(fileName)}.${extension}';\n`;
+  const importStatement = `@import './${toKebabCase(
+    fileName
+  )}.${extension}';\n`;
 
   if (content.includes(importStatement.trim())) {
     return;

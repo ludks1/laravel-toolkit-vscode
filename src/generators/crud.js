@@ -606,9 +606,9 @@ async function createReactViews(modelName, fields) {
   // Form Component
   const formContent = generateReactForm(modelName, fields);
   fs.writeFileSync(path.join(componentsPath, "Form.jsx"), formContent);
-  
+
   // Import components to app.js
-  await importComponentsToAppJS(modelName, 'react');
+  await importComponentsToAppJS(modelName, "react");
 }
 
 function generateReactIndex(modelName, fields) {
@@ -795,9 +795,9 @@ async function createVueViews(modelName, fields) {
   // Form Component
   const formContent = generateVueForm(modelName, fields);
   fs.writeFileSync(path.join(componentsPath, "Form.vue"), formContent);
-  
+
   // Import components to app.js
-  await importComponentsToAppJS(modelName, 'vue');
+  await importComponentsToAppJS(modelName, "vue");
 }
 
 function generateVueIndex(modelName, fields) {
@@ -1175,18 +1175,18 @@ async function importComponentsToAppJS(modelName, framework) {
 
   let content = fs.readFileSync(appJsPath, "utf8");
   const componentPath = `./Components/${toPascalCase(modelName)}`;
-  
+
   let importStatements = [];
-  
-  if (framework === 'react') {
+
+  if (framework === "react") {
     importStatements = [
       `import ${modelName}Index from '${componentPath}/Index';\n`,
-      `import ${modelName}Form from '${componentPath}/Form';\n`
+      `import ${modelName}Form from '${componentPath}/Form';\n`,
     ];
-  } else if (framework === 'vue') {
+  } else if (framework === "vue") {
     importStatements = [
       `import ${modelName}Index from '${componentPath}/Index.vue';\n`,
-      `import ${modelName}Form from '${componentPath}/Form.vue';\n`
+      `import ${modelName}Form from '${componentPath}/Form.vue';\n`,
     ];
   }
 
@@ -1201,7 +1201,7 @@ async function importComponentsToAppJS(modelName, framework) {
   }
 
   // Add each import if not already present
-  importStatements.forEach(importStatement => {
+  importStatements.forEach((importStatement) => {
     if (!content.includes(importStatement.trim())) {
       lines.splice(lastImportIndex + 1, 0, importStatement);
       lastImportIndex++;

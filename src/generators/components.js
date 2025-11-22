@@ -49,18 +49,13 @@ async function generateReactComponent() {
   );
 
   if (!componentType) return;
-  
+
   // @ts-ignore
   const selectedType = componentType.value || componentType;
 
   try {
     const rootPath = getLaravelRootPath();
-    const componentsPath = path.join(
-      rootPath,
-      "resources",
-      "js",
-      "Components"
-    );
+    const componentsPath = path.join(rootPath, "resources", "js", "Components");
 
     ensureDirectoryExists(componentsPath);
 
@@ -189,18 +184,13 @@ async function generateVueComponent() {
   );
 
   if (!componentType) return;
-  
+
   // @ts-ignore
   const selectedType = componentType.value || componentType;
 
   try {
     const rootPath = getLaravelRootPath();
-    const componentsPath = path.join(
-      rootPath,
-      "resources",
-      "js",
-      "Components"
-    );
+    const componentsPath = path.join(rootPath, "resources", "js", "Components");
 
     ensureDirectoryExists(componentsPath);
 
@@ -329,8 +319,8 @@ async function importComponentToAppJS(componentName, framework) {
   }
 
   let content = fs.readFileSync(appJsPath, "utf8");
-  
-  const extension = framework === 'vue' ? '.vue' : '';
+
+  const extension = framework === "vue" ? ".vue" : "";
   const importStatement = `import ${componentName} from './Components/${componentName}${extension}';\n`;
 
   if (content.includes(importStatement.trim())) {

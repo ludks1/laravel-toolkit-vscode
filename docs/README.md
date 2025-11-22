@@ -122,6 +122,7 @@
 #### Features
 
 **Creation Options**:
+
 - Model only
 - Model + Migration
 - Model + Migration + Factory
@@ -131,12 +132,14 @@
 - Model + Migration + Factory + Controller + Resource + Policy
 
 **Traits**:
+
 - `SoftDeletes` - Soft delete functionality
 - `HasUuids` - UUID primary key instead of auto-increment
 - `Searchable` - Laravel Scout integration
 - Custom traits support
 
 **Relationships**:
+
 - `hasOne` - One-to-one relationship
 - `hasMany` - One-to-many relationship
 - `belongsTo` - Inverse one-to-many
@@ -147,6 +150,7 @@
 - `hasManyThrough` - Has many through
 
 **Additional Options**:
+
 - Custom fillable fields
 - Subdirectory organization
 - Enable/disable timestamps
@@ -163,7 +167,7 @@ Name: Product
 Options: Model + Migration + Factory + Controller
 Traits: SoftDeletes
 Fillable: name, slug, description, price, stock, is_active
-Relationships: 
+Relationships:
   - belongsTo: Category
   - hasMany: Review
   - belongsToMany: Tag
@@ -226,26 +230,31 @@ class Product extends Model
 #### Controller Types
 
 1. **Empty Controller**
+
    - Basic controller structure
    - No pre-defined methods
    - Use for custom implementations
 
 2. **Invokable Controller**
+
    - Single `__invoke()` method
    - Perfect for single-action controllers
    - Cleaner route definitions
 
 3. **Resource Controller**
+
    - 7 RESTful methods
    - `index, create, store, show, edit, update, destroy`
    - For traditional web applications
 
 4. **API Resource Controller**
+
    - 5 API methods (no create/edit)
    - `index, store, show, update, destroy`
    - JSON responses only
 
 5. **Model Resource Controller**
+
    - Resource controller with model binding
    - Type-hinted parameters
    - Automatic model injection
@@ -267,23 +276,27 @@ class Product extends Model
 #### Advanced Features
 
 **Form Requests**:
+
 - Auto-generate `Store{Model}Request`
 - Auto-generate `Update{Model}Request`
 - Validation rules based on field types
 - Custom error messages
 
 **Authorization**:
+
 - Inject policy checks
 - `$this->authorize('action', Model::class)`
 - Automatic policy method calls
 
 **API Resources**:
+
 - Transform model to JSON
 - Hide sensitive fields
 - Add computed fields
 - Nested relationships
 
 **Eager Loading**:
+
 - Automatic relationship loading
 - Reduce N+1 queries
 - Configurable relationships
@@ -324,7 +337,7 @@ class PostController extends Controller
     public function index(): AnonymousResourceCollection
     {
         $this->authorize('viewAny', Post::class);
-        
+
         $posts = Post::with(['user', 'category', 'tags'])
             ->latest()
             ->paginate(15);
@@ -335,7 +348,7 @@ class PostController extends Controller
     public function store(StorePostRequest $request): JsonResponse
     {
         $this->authorize('create', Post::class);
-        
+
         $post = Post::create($request->validated());
 
         return (new PostResource($post))
@@ -346,7 +359,7 @@ class PostController extends Controller
     public function show(Post $post): PostResource
     {
         $this->authorize('view', $post);
-        
+
         $post->load(['user', 'category', 'tags']);
 
         return new PostResource($post);
@@ -355,7 +368,7 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, Post $post): PostResource
     {
         $this->authorize('update', $post);
-        
+
         $post->update($request->validated());
 
         return new PostResource($post);
@@ -364,7 +377,7 @@ class PostController extends Controller
     public function destroy(Post $post): JsonResponse
     {
         $this->authorize('delete', $post);
-        
+
         $post->delete();
 
         return response()->json(null, 204);
@@ -381,26 +394,26 @@ class PostController extends Controller
 
 #### Supported Field Types
 
-| Type | Database Type | Use Case |
-|------|---------------|----------|
-| `string` | VARCHAR(255) | Short text (names, titles) |
-| `text` | TEXT | Long text (descriptions) |
-| `integer` | INT | Whole numbers |
-| `bigInteger` | BIGINT | Large whole numbers |
-| `tinyInteger` | TINYINT | Small numbers (0-255) |
-| `boolean` | BOOLEAN | True/false values |
-| `decimal` | DECIMAL | Precise decimals (money) |
-| `float` | FLOAT | Floating point numbers |
-| `double` | DOUBLE | Double precision floats |
-| `date` | DATE | Date only (YYYY-MM-DD) |
-| `dateTime` | DATETIME | Date and time |
-| `timestamp` | TIMESTAMP | Unix timestamp |
-| `time` | TIME | Time only |
-| `json` | JSON | JSON data |
-| `jsonb` | JSONB | Binary JSON (PostgreSQL) |
-| `uuid` | UUID | Unique identifiers |
-| `enum` | ENUM | Predefined values |
-| `foreignId` | BIGINT UNSIGNED | Foreign key |
+| Type          | Database Type   | Use Case                   |
+| ------------- | --------------- | -------------------------- |
+| `string`      | VARCHAR(255)    | Short text (names, titles) |
+| `text`        | TEXT            | Long text (descriptions)   |
+| `integer`     | INT             | Whole numbers              |
+| `bigInteger`  | BIGINT          | Large whole numbers        |
+| `tinyInteger` | TINYINT         | Small numbers (0-255)      |
+| `boolean`     | BOOLEAN         | True/false values          |
+| `decimal`     | DECIMAL         | Precise decimals (money)   |
+| `float`       | FLOAT           | Floating point numbers     |
+| `double`      | DOUBLE          | Double precision floats    |
+| `date`        | DATE            | Date only (YYYY-MM-DD)     |
+| `dateTime`    | DATETIME        | Date and time              |
+| `timestamp`   | TIMESTAMP       | Unix timestamp             |
+| `time`        | TIME            | Time only                  |
+| `json`        | JSON            | JSON data                  |
+| `jsonb`       | JSONB           | Binary JSON (PostgreSQL)   |
+| `uuid`        | UUID            | Unique identifiers         |
+| `enum`        | ENUM            | Predefined values          |
+| `foreignId`   | BIGINT UNSIGNED | Foreign key                |
 
 #### Field Modifiers
 
@@ -414,6 +427,7 @@ class PostController extends Controller
 #### Special Features
 
 **Foreign Keys**:
+
 ```php
 $table->foreignId('user_id')
     ->constrained('users')
@@ -422,12 +436,14 @@ $table->foreignId('user_id')
 ```
 
 **Composite Indexes**:
+
 ```php
 $table->index(['user_id', 'created_at']);
 $table->unique(['email', 'tenant_id']);
 ```
 
 **Enum Values**:
+
 ```php
 $table->enum('status', ['draft', 'published', 'archived'])
     ->default('draft');
@@ -485,7 +501,7 @@ return new class extends Migration
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
             $table->timestamps();
-            
+
             $table->index(['is_active', 'published_at']);
         });
     }
@@ -507,30 +523,35 @@ return new class extends Migration
 #### Route Types
 
 1. **Web Routes**
+
    - Traditional web application routes
    - With views
    - CSRF protection
    - Session-based
 
 2. **API Routes**
+
    - RESTful API endpoints
    - JSON responses
    - Token-based auth
    - No CSRF
 
 3. **Admin Routes**
+
    - Administrative panel
    - Prefix: `/admin`
    - Restricted access
    - Additional middleware
 
 4. **Auth Routes**
+
    - Authentication routes
    - Login, Register, Logout
    - Password Reset
    - Email Verification
 
 5. **Protected Routes**
+
    - Requires authentication
    - Middleware: `auth`
    - Optional verification
@@ -542,6 +563,7 @@ return new class extends Migration
 #### Features
 
 **Route Selection**:
+
 - Choose specific routes to generate
 - Available routes:
   - `index` - List all resources
@@ -553,12 +575,14 @@ return new class extends Migration
   - `destroy` - Delete resource
 
 **Configuration**:
+
 - Custom prefix (`/admin`, `/api/v1`)
 - Middleware groups (`auth`, `verified`, `admin`)
 - Named routes (`admin.products.index`)
 - Namespace organization
 
 **Structure**:
+
 ```
 routes/
 ├── web.php
@@ -603,19 +627,19 @@ Route::middleware(['auth', 'admin', 'verified'])
     ->group(function () {
         Route::get('/products', [ProductController::class, 'index'])
             ->name('index');
-        
+
         Route::get('/products/create', [ProductController::class, 'create'])
             ->name('create');
-        
+
         Route::post('/products', [ProductController::class, 'store'])
             ->name('store');
-        
+
         Route::get('/products/{product}/edit', [ProductController::class, 'edit'])
             ->name('edit');
-        
+
         Route::put('/products/{product}', [ProductController::class, 'update'])
             ->name('update');
-        
+
         Route::delete('/products/{product}', [ProductController::class, 'destroy'])
             ->name('destroy');
     });
@@ -633,6 +657,7 @@ Route::middleware(['auth', 'admin', 'verified'])
 #### What It Generates
 
 **Backend (Laravel)**:
+
 1. **Model** - Eloquent model with fillable and casts
 2. **Migration** - Database schema
 3. **API Controller** - RESTful controller with 5 methods
@@ -641,6 +666,7 @@ Route::middleware(['auth', 'admin', 'verified'])
 6. **API Routes** - `apiResource` routes
 
 **Frontend (Vue 3)**:
+
 1. **List Component** - Table with pagination, search, delete
 2. **Form Component** - Create/Edit form with validation
 3. **Show Component** - Detail view
@@ -649,20 +675,20 @@ Route::middleware(['auth', 'admin', 'verified'])
 
 #### Field Types Supported
 
-| Field Type | Migration | Validation | Input Type |
-|------------|-----------|-----------|-----------|
-| string | VARCHAR(255) | string\|max:255 | text |
-| text | TEXT | string | textarea |
-| integer | INTEGER | integer | number |
-| bigint | BIGINT | integer | number |
-| decimal | DECIMAL | numeric | number |
-| float | FLOAT | numeric | number |
-| double | DOUBLE | numeric | number |
-| boolean | BOOLEAN | boolean | checkbox |
-| date | DATE | date | date |
-| datetime | DATETIME | date | datetime-local |
-| timestamp | TIMESTAMP | date | datetime-local |
-| json | JSON | array | textarea |
+| Field Type | Migration    | Validation      | Input Type     |
+| ---------- | ------------ | --------------- | -------------- |
+| string     | VARCHAR(255) | string\|max:255 | text           |
+| text       | TEXT         | string          | textarea       |
+| integer    | INTEGER      | integer         | number         |
+| bigint     | BIGINT       | integer         | number         |
+| decimal    | DECIMAL      | numeric         | number         |
+| float      | FLOAT        | numeric         | number         |
+| double     | DOUBLE       | numeric         | number         |
+| boolean    | BOOLEAN      | boolean         | checkbox       |
+| date       | DATE         | date            | date           |
+| datetime   | DATETIME     | date            | datetime-local |
+| timestamp  | TIMESTAMP    | date            | datetime-local |
+| json       | JSON         | array           | textarea       |
 
 #### Example Usage
 
@@ -675,6 +701,7 @@ Fields: title:string,slug:string,content:text,excerpt:text,published:boolean,pub
 ```
 
 **Generated Structure**:
+
 ```
 Backend:
 ├── app/Models/Post.php
@@ -698,105 +725,105 @@ Frontend:
 **Generated Composable** (`usePosts.js`):
 
 ```javascript
-import { ref } from 'vue';
-import axios from 'axios';
+import { ref } from "vue";
+import axios from "axios";
 
 export function usePosts() {
-    const posts = ref([]);
-    const post = ref(null);
-    const loading = ref(false);
-    const error = ref(null);
-    const errors = ref({});
-    const pagination = ref(null);
+  const posts = ref([]);
+  const post = ref(null);
+  const loading = ref(false);
+  const error = ref(null);
+  const errors = ref({});
+  const pagination = ref(null);
 
-    const fetchPosts = async (page = 1) => {
-        loading.value = true;
-        error.value = null;
-        try {
-            const response = await axios.get(`/api/posts?page=${page}`);
-            posts.value = response.data.data;
-            pagination.value = response.data.meta;
-        } catch (err) {
-            error.value = err.response?.data?.message || err.message;
-        } finally {
-            loading.value = false;
-        }
-    };
+  const fetchPosts = async (page = 1) => {
+    loading.value = true;
+    error.value = null;
+    try {
+      const response = await axios.get(`/api/posts?page=${page}`);
+      posts.value = response.data.data;
+      pagination.value = response.data.meta;
+    } catch (err) {
+      error.value = err.response?.data?.message || err.message;
+    } finally {
+      loading.value = false;
+    }
+  };
 
-    const fetchPost = async (id) => {
-        loading.value = true;
-        try {
-            const response = await axios.get(`/api/posts/${id}`);
-            post.value = response.data.data;
-            return post.value;
-        } catch (err) {
-            error.value = err.response?.data?.message;
-            return null;
-        } finally {
-            loading.value = false;
-        }
-    };
+  const fetchPost = async (id) => {
+    loading.value = true;
+    try {
+      const response = await axios.get(`/api/posts/${id}`);
+      post.value = response.data.data;
+      return post.value;
+    } catch (err) {
+      error.value = err.response?.data?.message;
+      return null;
+    } finally {
+      loading.value = false;
+    }
+  };
 
-    const createPost = async (data) => {
-        loading.value = true;
-        errors.value = {};
-        try {
-            const response = await axios.post('/api/posts', data);
-            return response.data.data;
-        } catch (err) {
-            if (err.response?.status === 422) {
-                errors.value = err.response.data.errors;
-            }
-            error.value = err.response?.data?.message;
-            throw err;
-        } finally {
-            loading.value = false;
-        }
-    };
+  const createPost = async (data) => {
+    loading.value = true;
+    errors.value = {};
+    try {
+      const response = await axios.post("/api/posts", data);
+      return response.data.data;
+    } catch (err) {
+      if (err.response?.status === 422) {
+        errors.value = err.response.data.errors;
+      }
+      error.value = err.response?.data?.message;
+      throw err;
+    } finally {
+      loading.value = false;
+    }
+  };
 
-    const updatePost = async (id, data) => {
-        loading.value = true;
-        errors.value = {};
-        try {
-            const response = await axios.put(`/api/posts/${id}`, data);
-            return response.data.data;
-        } catch (err) {
-            if (err.response?.status === 422) {
-                errors.value = err.response.data.errors;
-            }
-            error.value = err.response?.data?.message;
-            throw err;
-        } finally {
-            loading.value = false;
-        }
-    };
+  const updatePost = async (id, data) => {
+    loading.value = true;
+    errors.value = {};
+    try {
+      const response = await axios.put(`/api/posts/${id}`, data);
+      return response.data.data;
+    } catch (err) {
+      if (err.response?.status === 422) {
+        errors.value = err.response.data.errors;
+      }
+      error.value = err.response?.data?.message;
+      throw err;
+    } finally {
+      loading.value = false;
+    }
+  };
 
-    const deletePost = async (id) => {
-        loading.value = true;
-        try {
-            await axios.delete(`/api/posts/${id}`);
-            return true;
-        } catch (err) {
-            error.value = err.response?.data?.message;
-            throw err;
-        } finally {
-            loading.value = false;
-        }
-    };
+  const deletePost = async (id) => {
+    loading.value = true;
+    try {
+      await axios.delete(`/api/posts/${id}`);
+      return true;
+    } catch (err) {
+      error.value = err.response?.data?.message;
+      throw err;
+    } finally {
+      loading.value = false;
+    }
+  };
 
-    return {
-        posts,
-        post,
-        loading,
-        error,
-        errors,
-        pagination,
-        fetchPosts,
-        fetchPost,
-        createPost,
-        updatePost,
-        deletePost,
-    };
+  return {
+    posts,
+    post,
+    loading,
+    error,
+    errors,
+    pagination,
+    fetchPosts,
+    fetchPost,
+    createPost,
+    updatePost,
+    deletePost,
+  };
 }
 ```
 
@@ -804,38 +831,38 @@ export function usePosts() {
 
 ```vue
 <script setup>
-import { ref, onMounted } from 'vue';
-import { usePosts } from '@/composables/usePosts';
+import { ref, onMounted } from "vue";
+import { usePosts } from "@/composables/usePosts";
 
 const { posts, loading, error, fetchPosts, deletePost } = usePosts();
 
 onMounted(() => {
-    fetchPosts();
+  fetchPosts();
 });
 
 const handleDelete = async (id) => {
-    if (confirm('Are you sure?')) {
-        await deletePost(id);
-        fetchPosts();
-    }
+  if (confirm("Are you sure?")) {
+    await deletePost(id);
+    fetchPosts();
+  }
 };
 </script>
 
 <template>
-    <div>
-        <div v-if="loading">Loading...</div>
-        <div v-else-if="error">Error: {{ error }}</div>
-        <div v-else>
-            <table>
-                <tr v-for="post in posts" :key="post.id">
-                    <td>{{ post.title }}</td>
-                    <td>
-                        <button @click="handleDelete(post.id)">Delete</button>
-                    </td>
-                </tr>
-            </table>
-        </div>
+  <div>
+    <div v-if="loading">Loading...</div>
+    <div v-else-if="error">Error: {{ error }}</div>
+    <div v-else>
+      <table>
+        <tr v-for="post in posts" :key="post.id">
+          <td>{{ post.title }}</td>
+          <td>
+            <button @click="handleDelete(post.id)">Delete</button>
+          </td>
+        </tr>
+      </table>
     </div>
+  </div>
 </template>
 ```
 
@@ -851,6 +878,7 @@ const handleDelete = async (id) => {
 **Backend**: Same as Vue 3 generator
 
 **Frontend (React)**:
+
 1. **List Component** - Table with pagination, search, delete
 2. **Form Component** - Create/Edit form with validation
 3. **Show Component** - Detail view
@@ -870,150 +898,149 @@ Fields: name:string,sku:string,description:text,price:decimal,stock:integer,is_a
 **Generated Custom Hook** (`useProducts.js`):
 
 ```javascript
-import { useState } from 'react';
-import axios from 'axios';
+import { useState } from "react";
+import axios from "axios";
 
 export function useProducts() {
-    const [products, setProducts] = useState([]);
-    const [product, setProduct] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [errors, setErrors] = useState({});
-    const [pagination, setPagination] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [errors, setErrors] = useState({});
+  const [pagination, setPagination] = useState(null);
 
-    const fetchProducts = async (page = 1) => {
-        setLoading(true);
-        setError(null);
-        try {
-            const response = await axios.get(`/api/products?page=${page}`);
-            setProducts(response.data.data);
-            setPagination(response.data.meta);
-        } catch (err) {
-            setError(err.response?.data?.message || err.message);
-        } finally {
-            setLoading(false);
-        }
-    };
+  const fetchProducts = async (page = 1) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get(`/api/products?page=${page}`);
+      setProducts(response.data.data);
+      setPagination(response.data.meta);
+    } catch (err) {
+      setError(err.response?.data?.message || err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    const fetchProduct = async (id) => {
-        setLoading(true);
-        try {
-            const response = await axios.get(`/api/products/${id}`);
-            setProduct(response.data.data);
-            return response.data.data;
-        } catch (err) {
-            setError(err.response?.data?.message);
-            return null;
-        } finally {
-            setLoading(false);
-        }
-    };
+  const fetchProduct = async (id) => {
+    setLoading(true);
+    try {
+      const response = await axios.get(`/api/products/${id}`);
+      setProduct(response.data.data);
+      return response.data.data;
+    } catch (err) {
+      setError(err.response?.data?.message);
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    const createProduct = async (data) => {
-        setLoading(true);
-        setErrors({});
-        try {
-            const response = await axios.post('/api/products', data);
-            return response.data.data;
-        } catch (err) {
-            if (err.response?.status === 422) {
-                setErrors(err.response.data.errors);
-            }
-            setError(err.response?.data?.message);
-            throw err;
-        } finally {
-            setLoading(false);
-        }
-    };
+  const createProduct = async (data) => {
+    setLoading(true);
+    setErrors({});
+    try {
+      const response = await axios.post("/api/products", data);
+      return response.data.data;
+    } catch (err) {
+      if (err.response?.status === 422) {
+        setErrors(err.response.data.errors);
+      }
+      setError(err.response?.data?.message);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    const updateProduct = async (id, data) => {
-        setLoading(true);
-        setErrors({});
-        try {
-            const response = await axios.put(`/api/products/${id}`, data);
-            return response.data.data;
-        } catch (err) {
-            if (err.response?.status === 422) {
-                setErrors(err.response.data.errors);
-            }
-            setError(err.response?.data?.message);
-            throw err;
-        } finally {
-            setLoading(false);
-        }
-    };
+  const updateProduct = async (id, data) => {
+    setLoading(true);
+    setErrors({});
+    try {
+      const response = await axios.put(`/api/products/${id}`, data);
+      return response.data.data;
+    } catch (err) {
+      if (err.response?.status === 422) {
+        setErrors(err.response.data.errors);
+      }
+      setError(err.response?.data?.message);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    const deleteProduct = async (id) => {
-        setLoading(true);
-        try {
-            await axios.delete(`/api/products/${id}`);
-            return true;
-        } catch (err) {
-            setError(err.response?.data?.message);
-            throw err;
-        } finally {
-            setLoading(false);
-        }
-    };
+  const deleteProduct = async (id) => {
+    setLoading(true);
+    try {
+      await axios.delete(`/api/products/${id}`);
+      return true;
+    } catch (err) {
+      setError(err.response?.data?.message);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    return {
-        products,
-        product,
-        loading,
-        error,
-        errors,
-        pagination,
-        fetchProducts,
-        fetchProduct,
-        createProduct,
-        updateProduct,
-        deleteProduct,
-    };
+  return {
+    products,
+    product,
+    loading,
+    error,
+    errors,
+    pagination,
+    fetchProducts,
+    fetchProduct,
+    createProduct,
+    updateProduct,
+    deleteProduct,
+  };
 }
 ```
 
 **Usage in Component**:
 
 ```jsx
-import React, { useEffect } from 'react';
-import { useProducts } from '@/hooks/useProducts';
+import React, { useEffect } from "react";
+import { useProducts } from "@/hooks/useProducts";
 
 export default function ProductList() {
-    const { products, loading, error, fetchProducts, deleteProduct } = useProducts();
+  const { products, loading, error, fetchProducts, deleteProduct } =
+    useProducts();
 
-    useEffect(() => {
-        fetchProducts();
-    }, []);
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
-    const handleDelete = async (id) => {
-        if (window.confirm('Are you sure?')) {
-            await deleteProduct(id);
-            fetchProducts();
-        }
-    };
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure?")) {
+      await deleteProduct(id);
+      fetchProducts();
+    }
+  };
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>Error: {error}</div>;
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
-    return (
-        <div>
-            <table>
-                <tbody>
-                    {products.map(product => (
-                        <tr key={product.id}>
-                            <td>{product.name}</td>
-                            <td>{product.price}</td>
-                            <td>
-                                <button onClick={() => handleDelete(product.id)}>
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    );
+  return (
+    <div>
+      <table>
+        <tbody>
+          {products.map((product) => (
+            <tr key={product.id}>
+              <td>{product.name}</td>
+              <td>{product.price}</td>
+              <td>
+                <button onClick={() => handleDelete(product.id)}>Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }
 ```
 
@@ -1039,11 +1066,13 @@ export default function ProductList() {
 #### API Types
 
 1. **Complete API**
+
    - All 9 components
    - Full test coverage
    - Authorization included
 
 2. **Basic API**
+
    - Model, Controller, Routes
    - No tests or policies
    - Quick setup
@@ -1055,31 +1084,34 @@ export default function ProductList() {
 #### Features
 
 **Versioning**:
+
 - Support for v1, v2 API versions
 - Namespace organization
 - Version-specific routes
 
 **Authentication**:
+
 - Laravel Sanctum
 - Laravel Passport
 - JWT (tymon/jwt-auth)
 - None (public API)
 
 **Response Format**:
+
 ```json
 {
-    "data": {
-        "id": 1,
-        "name": "Product Name",
-        "price": "99.99",
-        "created_at": "2024-01-01T00:00:00.000000Z"
-    },
-    "meta": {
-        "current_page": 1,
-        "total_pages": 10,
-        "per_page": 15,
-        "total": 150
-    }
+  "data": {
+    "id": 1,
+    "name": "Product Name",
+    "price": "99.99",
+    "created_at": "2024-01-01T00:00:00.000000Z"
+  },
+  "meta": {
+    "current_page": 1,
+    "total_pages": 10,
+    "per_page": 15,
+    "total": 150
+  }
 }
 ```
 
@@ -1147,7 +1179,7 @@ class ProductApiTest extends TestCase
 
         $response->assertStatus(201)
             ->assertJsonPath('data.name', 'Test Product');
-        
+
         $this->assertDatabaseHas('products', $data);
     }
 
@@ -1215,16 +1247,19 @@ class ProductApiTest extends TestCase
 ### Available Commands
 
 #### Model Commands
+
 - **Make Model** - Create Eloquent model
 - **Make Factory** - Create model factory
 - **Make Seeder** - Create database seeder
 
 #### Controller Commands
+
 - **Make Controller** - Create HTTP controller
 - **Make Resource Controller** - Create resource controller
 - **Make API Controller** - Create API controller
 
 #### Database Commands
+
 - **Make Migration** - Create migration file
 - **Run Migrations** - Execute pending migrations
 - **Rollback Migrations** - Rollback last batch
@@ -1233,18 +1268,22 @@ class ProductApiTest extends TestCase
 - **Fresh + Seed** - Fresh migrations with seeders
 
 #### Request & Validation
+
 - **Make Form Request** - Create validation request
 - **Make Rule** - Create validation rule
 
 #### Middleware & Policies
+
 - **Make Middleware** - Create HTTP middleware
 - **Make Policy** - Create authorization policy
 
 #### Testing
+
 - **Make Test** - Create PHPUnit test
 - **Run Tests** - Execute test suite
 
 #### Cache & Optimization
+
 - **Clear Cache** - Clear application cache
 - **Clear Config** - Clear config cache
 - **Clear Routes** - Clear route cache
@@ -1252,6 +1291,7 @@ class ProductApiTest extends TestCase
 - **Optimize** - Optimize application
 
 #### Other
+
 - **Tinker** - Open interactive shell
 - **Route List** - List all routes
 - **Serve** - Start development server
@@ -1268,22 +1308,22 @@ Access via: `File` → `Preferences` → `Settings` → Search "Laravel Toolkit"
 {
   // PHP executable path
   "laravelToolkit.phpPath": "php",
-  
+
   // Composer executable path
   "laravelToolkit.composerPath": "composer",
-  
+
   // Default frontend framework
   "laravelToolkit.defaultFramework": "blade",
-  
+
   // Auto-detect framework from package.json
   "laravelToolkit.autoDetectFramework": true,
-  
+
   // Enable debug logging
   "laravelToolkit.debug": false,
-  
+
   // Default API version
   "laravelToolkit.defaultApiVersion": "v1",
-  
+
   // Default authentication type for APIs
   "laravelToolkit.defaultAuthType": "sanctum"
 }
@@ -1317,6 +1357,7 @@ Create `.vscode/settings.json` in your project:
 ### Models
 
 ✅ **DO**:
+
 - Use soft deletes for important data
 - Define all relationships
 - Set `$fillable` or `$guarded`
@@ -1325,12 +1366,14 @@ Create `.vscode/settings.json` in your project:
 - Organize in subdirectories by domain
 
 ❌ **DON'T**:
+
 - Mass assign without protection
 - Skip relationship definitions
 - Mix business logic in models
 - Use raw SQL in models
 
 **Example**:
+
 ```php
 <?php
 
@@ -1368,6 +1411,7 @@ class Product extends Model
 ### Controllers
 
 ✅ **DO**:
+
 - Keep controllers thin
 - Use Form Requests for validation
 - Add authorization checks
@@ -1376,12 +1420,14 @@ class Product extends Model
 - Use dependency injection
 
 ❌ **DON'T**:
+
 - Put business logic in controllers
 - Skip validation
 - Return inconsistent formats
 - Use too many dependencies
 
 **Example**:
+
 ```php
 <?php
 
@@ -1402,7 +1448,7 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $this->authorize('create', Product::class);
-        
+
         $product = $this->productService->create(
             $request->validated()
         );
@@ -1417,6 +1463,7 @@ class ProductController extends Controller
 ### Migrations
 
 ✅ **DO**:
+
 - Use descriptive names
 - Index foreign keys
 - Set appropriate defaults
@@ -1425,12 +1472,14 @@ class ProductController extends Controller
 - Create separate migrations for changes
 
 ❌ **DON'T**:
+
 - Edit deployed migrations
 - Skip indexes on foreign keys
 - Use TEXT for short strings
 - Forget to add down() method
 
 **Example**:
+
 ```php
 Schema::create('products', function (Blueprint $table) {
     $table->id();
@@ -1442,7 +1491,7 @@ Schema::create('products', function (Blueprint $table) {
         ->cascadeOnDelete();
     $table->timestamps();
     $table->softDeletes();
-    
+
     // Composite index for common queries
     $table->index(['category_id', 'created_at']);
 });
@@ -1453,6 +1502,7 @@ Schema::create('products', function (Blueprint $table) {
 ### API Development
 
 ✅ **DO**:
+
 - Use API Resources for responses
 - Version your APIs
 - Add pagination
@@ -1462,12 +1512,14 @@ Schema::create('products', function (Blueprint $table) {
 - Document with OpenAPI/Swagger
 
 ❌ **DON'T**:
+
 - Return raw models
 - Skip versioning
 - Return all fields
 - Use inconsistent formats
 
 **Example**:
+
 ```php
 // API Resource
 class ProductResource extends JsonResource
@@ -1501,6 +1553,7 @@ public function index()
 ### Testing
 
 ✅ **DO**:
+
 - Write tests for all API endpoints
 - Test validation rules
 - Test authorization
@@ -1509,17 +1562,19 @@ public function index()
 - Use RefreshDatabase
 
 ❌ **DON'T**:
+
 - Skip tests
 - Test only happy path
 - Use production data
 - Forget to test failures
 
 **Example**:
+
 ```php
 public function test_cannot_create_product_without_name()
 {
     $user = User::factory()->create();
-    
+
     $response = $this->actingAs($user)
         ->postJson('/api/products', [
             'price' => 99.99
@@ -1541,6 +1596,7 @@ public function test_cannot_create_product_without_name()
 **Steps**:
 
 1. **Create Product Model**
+
 ```bash
 Command: Generate Advanced Model
 Name: Product
@@ -1555,6 +1611,7 @@ Relationships:
 ```
 
 2. **Create API**
+
 ```bash
 Command: Generate REST API
 Model: Product
@@ -1564,6 +1621,7 @@ Generate: All components
 ```
 
 3. **Create Frontend**
+
 ```bash
 Command: Generate Vue 3 CRUD
 Model: Product
@@ -1571,6 +1629,7 @@ Fields: name:string,price:decimal,stock:integer
 ```
 
 4. **Run Migrations**
+
 ```bash
 Command: Run Migrations
 ```
@@ -1586,12 +1645,14 @@ Command: Run Migrations
 **Steps**:
 
 1. **Create Category**
+
 ```bash
 Model: Category
 Fields: name:string,slug:string,description:text
 ```
 
 2. **Create Post**
+
 ```bash
 Model: Post
 Fields: title:string,slug:string,content:text,published_at:datetime
@@ -1602,6 +1663,7 @@ Relationships:
 ```
 
 3. **Create Comment**
+
 ```bash
 Model: Comment
 Fields: content:text,approved:boolean
@@ -1611,6 +1673,7 @@ Relationships:
 ```
 
 4. **Generate CRUDs**
+
 ```bash
 - Generate Vue 3 CRUD for Category
 - Generate Vue 3 CRUD for Post
@@ -1628,6 +1691,7 @@ Relationships:
 #### 1. "PHP not found in PATH"
 
 **Solution**:
+
 ```json
 // .vscode/settings.json
 {
@@ -1639,6 +1703,7 @@ Relationships:
 #### 2. "Composer not found"
 
 **Solution**:
+
 ```json
 {
   "laravelToolkit.composerPath": "C:\\composer\\composer.bat"
@@ -1648,6 +1713,7 @@ Relationships:
 #### 3. "Routes not found"
 
 **Solution**:
+
 ```bash
 # Clear route cache
 php artisan route:clear
@@ -1657,12 +1723,14 @@ php artisan route:cache
 #### 4. "Migration already exists"
 
 **Solution**:
+
 - Delete existing migration file
 - Or rename the new migration
 
 #### 5. "API endpoints return 404"
 
 **Solution**:
+
 ```bash
 # Check routes
 php artisan route:list
@@ -1674,6 +1742,7 @@ php artisan optimize:clear
 #### 6. "Vue/React components not rendering"
 
 **Solution**:
+
 ```bash
 # Install dependencies
 npm install
@@ -1685,6 +1754,7 @@ npm run dev
 #### 7. "Validation not working"
 
 **Solution**:
+
 - Check Form Request files
 - Verify validation rules
 - Check API responses in Network tab
@@ -1692,6 +1762,7 @@ npm run dev
 #### 8. "CORS errors"
 
 **Solution**:
+
 ```php
 // config/cors.php
 'paths' => ['api/*'],

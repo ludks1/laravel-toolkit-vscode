@@ -126,14 +126,21 @@ function activate(context) {
 
   // ========== GENERADORES LEGACY ==========
   registerCommand(context, "laravel-toolkit.generateCRUD", generateCRUD);
-  
+
   const { generateAPI } = require("./generators/api");
   registerCommand(context, "laravel-toolkit.generateAPI", generateAPI);
 
   // ========== SPA CRUD GENERATORS ==========
-  const { generateVueCRUD, generateReactCRUD } = require("./generators/crud-spa");
+  const {
+    generateVueCRUD,
+    generateReactCRUD,
+  } = require("./generators/crud-spa");
   registerCommand(context, "laravel-toolkit.generateVueCRUD", generateVueCRUD);
-  registerCommand(context, "laravel-toolkit.generateReactCRUD", generateReactCRUD);
+  registerCommand(
+    context,
+    "laravel-toolkit.generateReactCRUD",
+    generateReactCRUD
+  );
 
   // ========== ROUTE MANAGEMENT ==========
   registerCommand(context, "laravel-toolkit.generateRoutes", generateRouteFile);
@@ -154,12 +161,9 @@ function activate(context) {
     generateReactComponent,
     generateVueComponent,
   } = require("./generators/components");
-  
-  const {
-    generateReactView,
-    generateVueView,
-  } = require("./generators/views");
-  
+
+  const { generateReactView, generateVueView } = require("./generators/views");
+
   registerCommand(
     context,
     "laravel-toolkit.generateReactComponent",
@@ -167,22 +171,18 @@ function activate(context) {
   );
 
   registerCommand(
-    context, 
-    "laravel-toolkit.generateVueComponent", 
+    context,
+    "laravel-toolkit.generateVueComponent",
     generateVueComponent
   );
-  
+
   registerCommand(
     context,
     "laravel-toolkit.generateReactView",
     generateReactView
   );
 
-  registerCommand(
-    context,
-    "laravel-toolkit.generateVueView",
-    generateVueView
-  );
+  registerCommand(context, "laravel-toolkit.generateVueView", generateVueView);
 
   registerCommand(
     context,
