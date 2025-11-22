@@ -1,0 +1,317 @@
+{
+  "name": "laravel-toolkit",
+  "displayName": "Laravel Toolkit",
+  "description": "Laravel Toolkit is a powerful VS Code extension with advanced granular generators for Laravel. Create models, controllers, migrations with maximum control and best practices built-in. Interactive field builders, relationship definitions, and complete CRUD automation.",
+  "version": "2.0.0",
+  "publisher": "Steinly",
+  "icon": "brain-process.png",
+  "engines": {
+    "vscode": "^1.103.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "tags": [
+    "laravel",
+    "artisan",
+    "php",
+    "crud",
+    "api",
+    "automation",
+    "commands"
+  ],
+  "activationEvents": [
+    "workspaceContains:**/artisan",
+    "workspaceContains:**/composer.*"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "laravelToolkit",
+          "title": "Laravel Toolkit",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "laravelToolkit": [
+        {
+          "id": "laravelToolkit",
+          "name": "Laravel Toolkit"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "laravel-toolkit.refresh",
+        "title": "Toolkit: Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "laravel-toolkit.makeModel",
+        "title": "Toolkit: Create Model",
+        "category": "Artisan"
+      },
+      {
+        "command": "laravel-toolkit.makeController",
+        "title": "Toolkit: Create Controller",
+        "category": "Artisan"
+      },
+      {
+        "command": "laravel-toolkit.makeMigration",
+        "title": "Toolkit: Create Migration",
+        "category": "Artisan"
+      },
+      {
+        "command": "laravel-toolkit.makeRequest",
+        "title": "Toolkit: Create Form Request",
+        "category": "Artisan"
+      },
+      {
+        "command": "laravel-toolkit.makeMiddleware",
+        "title": "Toolkit: Create Middleware",
+        "category": "Artisan"
+      },
+      {
+        "command": "laravel-toolkit.makeSeeder",
+        "title": "Toolkit: Create Seeder",
+        "category": "Artisan"
+      },
+      {
+        "command": "laravel-toolkit.routeList",
+        "title": "Toolkit: List Routes",
+        "category": "Artisan"
+      },
+      {
+        "command": "laravel-toolkit.migrate",
+        "title": "Toolkit: Run Migrations",
+        "category": "Database"
+      },
+      {
+        "command": "laravel-toolkit.migrateRefresh",
+        "title": "Toolkit: Refresh Migrations",
+        "category": "Database"
+      },
+      {
+        "command": "laravel-toolkit.migrateFreshSeed",
+        "title": "Toolkit: Fresh Migrations + Seed",
+        "category": "Database"
+      },
+      {
+        "command": "laravel-toolkit.dbSeed",
+        "title": "Toolkit: Run Seeders",
+        "category": "Database"
+      },
+      {
+        "command": "laravel-toolkit.cacheClear",
+        "title": "Toolkit: Clear Cache",
+        "category": "Utilities"
+      },
+      {
+        "command": "laravel-toolkit.configClear",
+        "title": "Toolkit: Clear Config",
+        "category": "Utilities"
+      },
+      {
+        "command": "laravel-toolkit.optimize",
+        "title": "Toolkit: Optimize Application",
+        "category": "Utilities"
+      },
+      {
+        "command": "laravel-toolkit.generateAdvancedModel",
+        "title": "Toolkit: Generate Advanced Model",
+        "category": "Generators"
+      },
+      {
+        "command": "laravel-toolkit.generateAdvancedController",
+        "title": "Toolkit: Generate Advanced Controller",
+        "category": "Generators"
+      },
+      {
+        "command": "laravel-toolkit.generateAdvancedMigration",
+        "title": "Toolkit: Generate Advanced Migration",
+        "category": "Generators"
+      },
+      {
+        "command": "laravel-toolkit.generateCRUD",
+        "title": "Toolkit: Generate Complete CRUD",
+        "category": "Generators"
+      },
+      {
+        "command": "laravel-toolkit.generateAPI",
+        "title": "Toolkit: Generate REST API",
+        "category": "Generators"
+      },
+      {
+        "command": "laravel-toolkit.generateVueCRUD",
+        "title": "Toolkit: Generate Vue 3 CRUD (Complete SPA)",
+        "category": "Generators"
+      },
+      {
+        "command": "laravel-toolkit.generateReactCRUD",
+        "title": "Toolkit: Generate React CRUD (Complete SPA)",
+        "category": "Generators"
+      },
+      {
+        "command": "laravel-toolkit.generateReactComponent",
+        "title": "Toolkit: Generate React Component",
+        "category": "Generators"
+      },
+      {
+        "command": "laravel-toolkit.generateVueComponent",
+        "title": "Toolkit: Generate Vue Component",
+        "category": "Generators"
+      },
+      {
+        "command": "laravel-toolkit.generateLivewireComponent",
+        "title": "Toolkit: Generate Livewire Component",
+        "category": "Generators"
+      },
+      {
+        "command": "laravel-toolkit.generateReactView",
+        "title": "Toolkit: Generate React View/Page",
+        "category": "Generators"
+      },
+      {
+        "command": "laravel-toolkit.generateVueView",
+        "title": "Toolkit: Generate Vue View/Page",
+        "category": "Generators"
+      },
+      {
+        "command": "laravel-toolkit.generateTest",
+        "title": "Toolkit: Generate Test",
+        "category": "Testing"
+      },
+      {
+        "command": "laravel-toolkit.generateService",
+        "title": "Toolkit: Generate Service Class",
+        "category": "Generators"
+      },
+      {
+        "command": "laravel-toolkit.generateJS",
+        "title": "Toolkit: Generate JS File",
+        "category": "Assets"
+      },
+      {
+        "command": "laravel-toolkit.generateCSS",
+        "title": "Toolkit: Generate CSS/SCSS File",
+        "category": "Assets"
+      },
+      {
+        "command": "laravel-toolkit.setupVite",
+        "title": "Toolkit: Setup Vite",
+        "category": "Assets"
+      },
+      {
+        "command": "laravel-toolkit.setupJSStructure",
+        "title": "Toolkit: Setup JS Structure",
+        "category": "Assets"
+      },
+      {
+        "command": "laravel-toolkit.viteStart",
+        "title": "Toolkit: Start Vite Dev Server",
+        "category": "Assets"
+      },
+      {
+        "command": "laravel-toolkit.viteBuild",
+        "title": "Toolkit: Build for Production",
+        "category": "Assets"
+      },
+      {
+        "command": "laravel-toolkit.tinker",
+        "title": "Toolkit: Open Tinker",
+        "category": "Utilities"
+      },
+      {
+        "command": "laravel-toolkit.composerInstall",
+        "title": "Toolkit: Composer Install",
+        "category": "Utilities"
+      },
+      {
+        "command": "laravel-toolkit.npmInstall",
+        "title": "Toolkit: NPM Install",
+        "category": "Utilities"
+      },
+      {
+        "command": "laravel-toolkit.serve",
+        "title": "Toolkit: Start Development Server",
+        "category": "Utilities"
+      },
+      {
+        "command": "laravel-toolkit.generateRoutes",
+        "title": "Toolkit: Generate Route File",
+        "category": "Routes"
+      },
+      {
+        "command": "laravel-toolkit.generateResourceRoutes",
+        "title": "Toolkit: Generate Resource Routes",
+        "category": "Routes"
+      },
+      {
+        "command": "laravel-toolkit.listRoutes",
+        "title": "Toolkit: List Modular Routes",
+        "category": "Routes"
+      },
+      {
+        "command": "laravel-toolkit.setupModularRoutes",
+        "title": "Toolkit: Setup Modular Routes System",
+        "category": "Routes"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "laravel-toolkit.refresh",
+          "when": "view == laravelToolkit",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Laravel Toolkit",
+      "properties": {
+        "laravelToolkit.phpPath": {
+          "type": "string",
+          "default": "php",
+          "description": "Path to PHP executable"
+        },
+        "laravelToolkit.composerPath": {
+          "type": "string",
+          "default": "composer",
+          "description": "Path to Composer executable"
+        },
+        "laravelToolkit.defaultFramework": {
+          "type": "string",
+          "enum": [
+            "blade",
+            "livewire",
+            "react",
+            "vue"
+          ],
+          "default": "blade",
+          "description": "Default frontend framework for generators"
+        },
+        "laravelToolkit.autoDetectFramework": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically detect frontend framework from package.json"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.102.0",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2",
+    "eslint": "^9.25.1"
+  }
+}
