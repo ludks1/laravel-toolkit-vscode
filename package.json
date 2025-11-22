@@ -5,6 +5,10 @@
   "version": "2.0.0",
   "publisher": "Steinly",
   "icon": "brain-process.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ludks1/laravel-toolkit-vscode.git"
+  },
   "engines": {
     "vscode": "^1.103.0"
   },
